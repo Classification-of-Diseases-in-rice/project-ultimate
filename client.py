@@ -14,3 +14,5 @@ url='http://127.0.0.1:5000/model'
 requested_data=json.dumps({'img':img})
 response = requests.post(url,requested_data)
 response.text
+ 
+  
