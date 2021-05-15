@@ -1,9 +1,9 @@
-import pandas as pb
+import pandas as pd
 import seaborn as sb
 import tensorflow as tf
 
 
-model=tf.keras.models.load_model("Data_Set\Saved_Model\ResNet50_rice.h5")
+model=tf.keras.models.load_model("Saved_Model\ResNet50_rice_latest.h5")
 filenames=test_generator.filenames
 nb_samples=len(test_generator)
 y_prob=[]
@@ -15,7 +15,7 @@ for _ in range(nb_samples):
     y_act.append(Y_test)
 
 
-predicted_class=[list(train_generator.class_indices.key())[i.argmax()] for i in y_prob]
+predicted_class=[list(train_generator.class_indices.keys())[i.argmax()] for i in y_prob]
 actual_class=[list(train_generator.class_indices.keys())[i.argmax()] for i in y_act]
 
 
@@ -23,7 +23,7 @@ out_df=pd.DataFrame(np.vstack([predicted_class,actual_class]).T,columns=['predic
 confusion_matrix=pd.crosstab(out_df['actual_class'],out_df['predicted_class'],rownames=['Actual'],colnames=['Predicted'])
 
 
-sn.heatmap(confusion_matrix,cmap=' Blues', annot=True , fmt='d')
+sb.heatmap(confusion_matrix,cmap='Blues', annot=True , fmt='d')
 plt.show()
 print('test accuracy: {}'.format((np.diagonal(confusion_matrix).sum()/confusion_matrix.sum().sum()*100)))
 
