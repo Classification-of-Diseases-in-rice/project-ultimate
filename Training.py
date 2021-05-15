@@ -67,7 +67,7 @@ model.compile(optimizer='SGD',loss='categorical_crossentropy',metrics=['accuracy
 
 model.fit(train_generator,epochs=10)
 
-model.save('Saved_Model\ResNet50_rice_last.h5')
+model.save('Saved_Model\ResNet50_rice_latest.h5')
 
 test_loss,test_acc=model.evaluate(test_generator,verbose=2)
 
